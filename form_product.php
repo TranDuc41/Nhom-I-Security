@@ -22,7 +22,7 @@ if (!empty($_POST['submit'])) {
     } else {
         $productModel->insertProduct($_POST);
     }
-    header('location: list_users.php');
+    // header('location: list_users.php');
 }
 
 // if (!empty($_POST['submit'])) {

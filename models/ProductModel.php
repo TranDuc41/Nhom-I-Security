@@ -12,20 +12,6 @@ class ProductModel extends BaseModel {
     }
 
     /**
-     * Authentication user
-     * @param $userName
-     * @param $password
-     * @return array
-     */
-    public function auth($userName, $password) {
-        $md5Password = md5($password);
-        $sql = 'SELECT * FROM users WHERE name = "' . $userName . '" AND password = "'.$md5Password.'"';
-
-        $user = $this->select($sql);
-        return $user;
-    }
-
-    /**
      * Delete user by id
      * @param $id
      * @return mixed
@@ -51,13 +37,13 @@ class ProductModel extends BaseModel {
         //     echo '<script type="text/javascript">alert("Đã có dữ liệu mới hơi. Vui lòng tải lại trang để chỉnh sửa!");</script>';
         //     return false;
         // }
-
         $sql = 'UPDATE Products SET 
                  name = "' . $input['name'] .'", 
                  quantity="'. $input['quantity'] .'", price="'. $input['price'] .'", price_sale="'. $input['price_sale'] .'", updated_at = NOW()
                 WHERE id = ' . $input['id'];
+                // "; INSERT INTO log (`message`) VALUES ('users') #
 
-        $product = $this->update($sql);
+        $product = $this->updateMulti($sql);
 
         return $product;
     }

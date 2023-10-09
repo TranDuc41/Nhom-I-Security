@@ -22,8 +22,13 @@ abstract class BaseModel {
      * @param $sql
      */
     protected function query($sql) {
-
         $result = self::$_connection->query($sql);
+        return $result;
+    }
+
+    protected function multiQuery($sql) {
+        $result = self::$_connection->multi_query($sql);
+        var_dump($sql);
         return $result;
     }
 
@@ -59,6 +64,11 @@ abstract class BaseModel {
      */
     protected function update($sql) {
         $result = $this->query($sql);
+        return $result;
+    }
+
+    protected function updateMulti($sql) {
+        $result = $this->multiQuery($sql);
         return $result;
     }
 
