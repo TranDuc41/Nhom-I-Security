@@ -15,6 +15,7 @@ if (!empty($_GET['keyword'])) {
 
 $users = $userModel->getUsers($params);
 $products = $productModel->getProducts($params);
+$logs = $productModel->getLog($params);
 
 ?>
 <!DOCTYPE html>
@@ -121,6 +122,37 @@ $products = $productModel->getProducts($params);
                                 <a href="delete_product.php?id=<?php echo $product['id'] ?>">
                                     <i class="fa fa-eraser" aria-hidden="true" title="Delete"></i>
                                 </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        <?php }else { ?>
+            <div class="alert alert-dark" role="alert">
+                This is a dark alert—check it out!
+            </div>
+        <?php } ?>
+
+        <?php if (!empty($logs)) {?>
+            <div class="alert alert-warning" role="alert">
+                List of Logs! <br>
+                Hacker: http://php.local/list_users.php?keyword=ASDF%25%22%3BTRUNCATE+banks%3B%23%23
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($logs as $log) {?>
+                        <tr>
+                            <th scope="row"><?php echo $log['id']?></th>
+                            <td>
+                                <!-- <?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?> -->
+                                <?php echo $log['message']?>
+                            </td>
                             </td>
                         </tr>
                     <?php } ?>

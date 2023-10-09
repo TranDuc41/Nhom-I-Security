@@ -41,7 +41,6 @@ class ProductModel extends BaseModel {
                  name = "' . $input['name'] .'", 
                  quantity="'. $input['quantity'] .'", price="'. $input['price'] .'", price_sale="'. $input['price_sale'] .'", updated_at = NOW()
                 WHERE id = ' . $input['id'];
-                // "; INSERT INTO log (`message`) VALUES ('users') #
 
         $product = $this->updateMulti($sql);
 
@@ -93,5 +92,12 @@ class ProductModel extends BaseModel {
         }
 
         return $products;
+    }
+
+    public function getLog() {
+            $sql = 'SELECT * FROM log';
+            $logs = $this->query($sql);
+
+        return $logs;
     }
 }
