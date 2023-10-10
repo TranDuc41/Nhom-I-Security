@@ -37,9 +37,16 @@ class ProductModel extends BaseModel {
         //     echo '<script type="text/javascript">alert("Đã có dữ liệu mới hơi. Vui lòng tải lại trang để chỉnh sửa!");</script>';
         //     return false;
         // }
+
+        $name=mysqli_real_escape_string(self::$_connection, $input['name']);
+        $quantity=mysqli_real_escape_string(self::$_connection, $input['quantity']);
+        $price=mysqli_real_escape_string(self::$_connection, $input['price']);
+        $price_sale=mysqli_real_escape_string(self::$_connection, $input['price_sale']);
+
+
         $sql = 'UPDATE Products SET 
-                 name = "' . $input['name'] .'", 
-                 quantity="'. $input['quantity'] .'", price="'. $input['price'] .'", price_sale="'. $input['price_sale'] .'", updated_at = NOW()
+                 name = "' . $name .'", 
+                 quantity="'. $quantity .'", price="'. $price .'", price_sale="'. $price_sale .'", updated_at = NOW()
                 WHERE id = ' . $input['id'];
 
         $product = $this->updateMulti($sql);

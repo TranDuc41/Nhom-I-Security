@@ -28,7 +28,6 @@ abstract class BaseModel {
 
     protected function multiQuery($sql) {
         $result = self::$_connection->multi_query($sql);
-        var_dump($sql);
         return $result;
     }
 
