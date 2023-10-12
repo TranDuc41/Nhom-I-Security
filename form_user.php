@@ -8,10 +8,12 @@ $user = NULL; //Add new user
 $_id = NULL;
 
 if (!empty($_GET['id'])) {
-    $_id = $_GET['id'];
-    $user = $userModel->findUserById($_id);//Update existing user
+    $hasn_id = $_GET['id'];
+    $_id = $_SESSION['id'];
+    if ($userModel->findUserByHasnId($_id,$hasn_id)== 1) {
+        $user = $userModel->findUserById($_id);//Update existing user
+    }
 }
-
 
 if (!empty($_POST['submit'])) {
 

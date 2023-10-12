@@ -11,6 +11,15 @@ class UserModel extends BaseModel {
         return $user;
     }
 
+    //so sanh id va hasn_id
+    public function findUserByHasnId($_id,$hasn_id){
+            $hashed_id = hash('sha256', $_id);
+            if ($hashed_id == $hasn_id) {
+                return 1;
+            }             
+        return 0;
+    }
+
     public function findUser($keyword) {
         $sql = 'SELECT * FROM users WHERE user_name LIKE %'.$keyword.'%'. ' OR user_email LIKE %'.$keyword.'%';
         $user = $this->select($sql);
