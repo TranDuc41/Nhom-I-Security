@@ -8,9 +8,9 @@ $user = NULL; //Add new user
 $_id = NULL;
 
 if (!empty($_GET['id'])) {
-    $hasn_id = $_GET['id'];
+    $hash_id = $_GET['id'];
     $_id = $_SESSION['id'];
-    if ($userModel->findUserByHasnId($_id,$hasn_id)== 1) {
+    if ($userModel->findUserByHashId($_id,$hash_id)== 1) {
         $user = $userModel->findUserById($_id);//Update existing user
     }
 }
