@@ -16,17 +16,22 @@ if (!empty($_GET['keyword'])) {
 $users = $userModel->getUsers($params);
 $products = $productModel->getProducts($params);
 
+// Tạo token ngẫu nhiên và lưu trong phiên người dùng 
+$token = bin2hex(random_bytes(32));
+$_SESSION['csrf_token'] = $token;
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home</title>
     <?php include 'views/meta.php' ?>
 </head>
+
 <body>
-    <?php include 'views/header.php'?>
+    <?php include 'views/header.php' ?>
     <div class="container">
-        <?php if (!empty($users)) {?>
+        <?php if (!empty($users)) { ?>
             <div class="alert alert-warning" role="alert">
                 List of users! <br>
                 Hacker: http://php.local/list_users.php?keyword=ASDF%25%22%3BTRUNCATE+banks%3B%23%23
@@ -42,19 +47,19 @@ $products = $productModel->getProducts($params);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($users as $user) {?>
+                    <?php foreach ($users as $user) { ?>
                         <tr>
-                            <th scope="row"><?php echo $user['id']?></th>
+                            <th scope="row"><?php echo $user['id'] ?></th>
                             <td>
                                 <!-- <?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?> -->
-                                <?php echo $user['name']?>
+                                <?php echo $user['name'] ?>
                             </td>
                             <td>
                                 <!-- <?php echo htmlspecialchars($user['fullname'], ENT_QUOTES, 'UTF-8'); ?> -->
-                                <?php echo $user['fullname']?>
+                                <?php echo $user['fullname'] ?>
                             </td>
                             <td>
-                                <?php echo $user['type']?>
+                                <?php echo $user['type'] ?>
                             </td>
                             <td>
                                 <a href="form_user.php?id=<?php echo (!empty($id)) ? $id : $user['id']; ?>">
@@ -63,7 +68,10 @@ $products = $productModel->getProducts($params);
                                 <a href="view_user.php?id=<?php echo $user['id'] ?>">
                                     <i class="fa fa-eye" aria-hidden="true" title="View"></i>
                                 </a>
-                                <a href="delete_user.php?id=<?php echo $user['id'] ?>">
+                                <!-- <a href="delete_user.php?id=<?php echo $user['id'] ?>">
+                                    <i class="fa fa-eraser" aria-hidden="true" title="Delete"></i>
+                                </a> -->
+                                <a href="delete_user.php?id=<?php echo $user['id'] ?>&token=<?php echo $token ?>">
                                     <i class="fa fa-eraser" aria-hidden="true" title="Delete"></i>
                                 </a>
                             </td>
@@ -71,13 +79,13 @@ $products = $productModel->getProducts($params);
                     <?php } ?>
                 </tbody>
             </table>
-        <?php }else { ?>
+        <?php } else { ?>
             <div class="alert alert-dark" role="alert">
                 This is a dark alert—check it out!
             </div>
         <?php } ?>
 
-        <?php if (!empty($products)) {?>
+        <?php if (!empty($products)) { ?>
             <div class="alert alert-warning" role="alert">
                 List of Products! <br>
                 Hacker: http://php.local/list_users.php?keyword=ASDF%25%22%3BTRUNCATE+banks%3B%23%23
@@ -94,22 +102,22 @@ $products = $productModel->getProducts($params);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($products as $product) {?>
+                    <?php foreach ($products as $product) { ?>
                         <tr>
-                            <th scope="row"><?php echo $product['id']?></th>
+                            <th scope="row"><?php echo $product['id'] ?></th>
                             <td>
                                 <!-- <?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?> -->
-                                <?php echo $product['name']?>
+                                <?php echo $product['name'] ?>
                             </td>
                             <td>
                                 <!-- <?php echo htmlspecialchars($product['quantity'], ENT_QUOTES, 'UTF-8'); ?> -->
-                                <?php echo $product['quantity']?>
+                                <?php echo $product['quantity'] ?>
                             </td>
                             <td>
-                                <?php echo $product['price']?>
+                                <?php echo $product['price'] ?>
                             </td>
                             <td>
-                                <?php echo $product['price_sale']?>
+                                <?php echo $product['price_sale'] ?>
                             </td>
                             <td>
                                 <a href="form_product.php?id=<?php echo $product['id'] ?>">
@@ -126,11 +134,12 @@ $products = $productModel->getProducts($params);
                     <?php } ?>
                 </tbody>
             </table>
-        <?php }else { ?>
+        <?php } else { ?>
             <div class="alert alert-dark" role="alert">
                 This is a dark alert—check it out!
             </div>
         <?php } ?>
     </div>
 </body>
+
 </html>
